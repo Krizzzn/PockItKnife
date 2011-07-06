@@ -126,5 +126,20 @@ namespace PockItKnifeTest
             //ASSERT
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void IsNullOrEmpty__behaves_like_original()
+        {
+            //ARRANGE
+
+            //ACT
+            Assert.AreEqual(string.IsNullOrEmpty(""), "".IsNullOrEmpty());
+            Assert.AreEqual(string.IsNullOrEmpty(default(string)), (default(string)).IsNullOrEmpty());
+            Assert.AreEqual(string.IsNullOrEmpty("b"), "b".IsNullOrEmpty());
+            Assert.AreEqual(string.IsNullOrEmpty("basdasdasdasd a"), "basdasdasdasd a".IsNullOrEmpty());
+
+            //ASSERT
+            
+        }
     }
 }

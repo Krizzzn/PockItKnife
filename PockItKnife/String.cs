@@ -32,6 +32,16 @@ namespace System
         {
             return new PockItKnife.Crypt(forCrypt);
         }
+
+        /// <summary>
+        /// Provides a convenient way to use the String.IsNullOrEmpty()
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string input)
+        {
+            return string.IsNullOrEmpty(input);
+        }
     }
 
 }
