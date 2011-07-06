@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypt.cs" />
     <Compile Include="Enumerables.cs" />
     <Compile Include="String.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

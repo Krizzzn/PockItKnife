@@ -49,6 +49,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CryptTest.cs" />
     <Compile Include="EnumerablesTest.cs" />
     <Compile Include="StringTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

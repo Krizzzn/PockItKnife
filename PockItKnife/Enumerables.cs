@@ -8,7 +8,7 @@ namespace System
     /// <summary>
     /// Contains Extensions for IEnumerable<T>
     /// </summary>
-    public static partial class PockItKnife
+    public static partial class PockItKnifeExtensions
     {
         /// <summary>
         /// Execute an action on every object that matches the predicate.

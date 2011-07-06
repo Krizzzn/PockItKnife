@@ -99,5 +99,32 @@ namespace PockItKnifeTest
             //ASSERT
             Assert.AreEqual("bla bla blubb!", result);                                    
         }
+
+        [TestMethod]
+        public void Crypt_CanHandleNullValue()
+        {
+            //ARRANGE
+            string handle = null;
+
+            //ACT
+            var result = handle.Crypt();
+
+            //ASSERT
+            Assert.IsNotNull(result);
+
+        }
+
+        [TestMethod]
+        public void Crypt_CanHandleEmptyValue()
+        {
+            //ARRANGE
+            string handle = "";
+
+            //ACT
+            var result = handle.Crypt();
+
+            //ASSERT
+            Assert.IsNotNull(result);
+        }
     }
 }

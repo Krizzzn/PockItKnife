@@ -1,5 +1,7 @@
 POCKITKNIFE...
 
-is a small utility assembly with convinient extension methods.
-It currently features a String Format Injector and ForEach() for IEnumerable<T>.
+is a small utility assembly with convenient extension methods.
+It currently features a String Format Injector, Weak Crypto and ForEach() for IEnumerable<T>.
+
+
 

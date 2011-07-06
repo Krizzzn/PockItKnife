@@ -8,10 +8,10 @@ namespace System
     /// <summary>
     /// Contains extension methods for String
     /// </summary>
-    public static partial class PockItKnife
+    public static partial class PockItKnifeExtensions
     {
         /// <summary>
-        /// Provides a convinient way to use the String.Format()
+        /// Provides a convenient way to use the String.Format()
         /// </summary>
         /// <param name="format"></param>
         /// <param name="param"></param>
@@ -21,6 +21,16 @@ namespace System
             if (format == null)
                 return null;
             return string.Format(format, param);
+        }
+
+        /// <summary>
+        /// Provides a weak but convenient way to en or de crpyt a string. Used for avoiding plain text passwords in config files.
+        /// </summary>
+        /// <param name="forCrypt"></param>
+        /// <returns></returns>
+        public static PockItKnife.Crypt Crypt(this string forCrypt)
+        {
+            return new PockItKnife.Crypt(forCrypt);
         }
     }
 
