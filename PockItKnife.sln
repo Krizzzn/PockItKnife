@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PockItKnife", "PockItKnife\PockItKnife.csproj", "{39D57CF0-397C-4E32-983E-E352FA78B1EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PockItKnifeTest", "PockItKnifeTest\PockItKnifeTest.csproj", "{903A5908-ACB4-45CA-990D-D350A58E4F14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39D57CF0-397C-4E32-983E-E352FA78B1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D57CF0-397C-4E32-983E-E352FA78B1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D57CF0-397C-4E32-983E-E352FA78B1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D57CF0-397C-4E32-983E-E352FA78B1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903A5908-ACB4-45CA-990D-D350A58E4F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903A5908-ACB4-45CA-990D-D350A58E4F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903A5908-ACB4-45CA-990D-D350A58E4F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903A5908-ACB4-45CA-990D-D350A58E4F14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
