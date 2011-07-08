@@ -11,6 +11,3 @@ Current Features:
 * other string extensions
 
 The test project contains references to FluentAssertions using NuGet. The binaries are not included into this package.
-
-
-

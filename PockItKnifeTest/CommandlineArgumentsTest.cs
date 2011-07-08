@@ -149,7 +149,7 @@ namespace PockItKnifeTest
         public void Indexer__findes_value_for_arguments_colon()
         {
             //ARRANGE
-            var cmdArgs = new string[] { "-flag1:mebevalue", "-flag2: mebevalue", "-flag3: \"me be value\""};
+            var cmdArgs = new string[] { "-flag1:", "mebevalue", "-flag2:", "mebevalue", "-flag3:", "me be value"};
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -164,7 +164,7 @@ namespace PockItKnifeTest
         public void Indexer__finds_path()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"-flag1: ""C:\bla\bla\bla.txt""" };
+            var cmdArgs = new string[] { @"-flag1:", @"C:\bla\bla\bla.txt" };
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -177,7 +177,7 @@ namespace PockItKnifeTest
         public void Indexer__finds_flags_without_any_delimiters()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"flag1 bla flag2 blubb true" };
+            var cmdArgs = new string[] { @"flag1","bla", "flag2", "blubb", "true" };
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -192,7 +192,7 @@ namespace PockItKnifeTest
         public void Indexer__finds_with_equal()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"flag1=bla flag2=   blubb" };
+            var cmdArgs = new string[] { @"flag1=","bla", "flag2=", " ", " ", "blubb" };
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -207,7 +207,7 @@ namespace PockItKnifeTest
         public void Indexer__should_be_case_insensitive()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"flag1=bla" };
+            var cmdArgs = new string[] { @"flag1=", "bla" };
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -218,12 +218,25 @@ namespace PockItKnifeTest
             ca["FLAG1"].Should().Be(@"bla");
         }
 
+        [TestMethod]
+        public void Indexer__test_ldap_path()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { @"-flag1=", "ldap://blabla" };
+
+            //ACT
+            var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            //ASSERT
+
+            ca["flAg1"].Should().Be(@"ldap://blabla");
+        }
+
 
         [TestMethod]
         public void All__gets_list_of_all_keys()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"flag1=bla flag2=   blubb /flag4 /flag3 /flag5" };
+            var cmdArgs = new string[] { @"flag1=","bla", "flag2=","blubb", "/flag4", "/flag3", "/flag5" };
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -255,7 +268,7 @@ namespace PockItKnifeTest
         public void AutomagicInit__throws_if_input_is_null()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"parm1=bla param2=blubb param3=blibb" };
+            var cmdArgs = new string[] { @"parm1=", "bla", "param2=", "blubb", "param3=", "blibb" };
             
             //ACT
             var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -270,7 +283,7 @@ namespace PockItKnifeTest
         public void AutomagicInit__complete_automagic()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"param1=bla param2=blubb param3=blibb" };
+            var cmdArgs = new string[] { @"param1=", "bla", "param2=", "blubb", "param3=", "blibb" };
 
             //ACT
             var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -287,7 +300,7 @@ namespace PockItKnifeTest
         public void AutomagicInit__complete_automagic_can_handle_param_not_found()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"param1=bla param2=blubb" };
+            var cmdArgs = new string[] { @"param1=", "bla", "param2=", "blubb" };
 
             //ACT
             var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -319,7 +332,7 @@ namespace PockItKnifeTest
         public void AutomagicInit__can_handle_numeric_values()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"param5=1 param6=1.1 param7=1.2" };
+            var cmdArgs = new string[] { @"param5=", "1", "param6=", "1.1", "param7=", "1.2" };
 
             //ACT
             var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
@@ -339,7 +352,7 @@ namespace PockItKnifeTest
         public void AutomagicInit__Loads_param_using_attribute()
         {
             //ARRANGE
-            var cmdArgs = new string[] { @"foooo=yeah" };
+            var cmdArgs = new string[] { @"foooo=", "yeah" };
 
             //ACT
             var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);

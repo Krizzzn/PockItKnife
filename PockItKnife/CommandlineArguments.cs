@@ -66,18 +66,18 @@ namespace PockItKnife
             string chained = string.Join(" ", _arguments);
 
             Regex splitEx = new Regex(@"(!?[ :=]+)");
-            Regex prefEx = new Regex(@"[-/]{1,2}");
-            Regex sepEx = new Regex(@"[ :=]{1,2}");
+            Regex prefEx = new Regex(@"^[-/]{1,2}");
+            Regex sepEx = new Regex(@"^[ :=]{1,2}$");
+            Regex suffEx = new Regex(@"[ :=]$");
 
-            var args = new Stack<string>(splitEx.Split(chained).Reverse());
-            bool waitingMode = false;
+            var args = new Stack<string>(_arguments.Reverse());
 
             string[] collect = null;
             while (args.Count > 0)
             {
                 var bit = args.Pop();
 
-                if (sepEx.IsMatch(bit) && !waitingMode)
+                if (sepEx.IsMatch(bit))
                     continue;
 
                 if (collect != null && prefEx.Match(bit).Success)
@@ -90,6 +90,9 @@ namespace PockItKnife
 
                 if (collect == null && !bit.IsNullOrEmpty())
                 {
+                    while (suffEx.IsMatch(bit))
+                        bit = suffEx.Replace(bit, "");
+
                     bit = prefEx.Replace(bit, "");
                     collect = new[] { bit, "" };
                     continue;
@@ -97,12 +100,6 @@ namespace PockItKnife
 
                 collect[1] += bit;
 
-                if ((bit.StartsWith("\"") || waitingMode) && !bit.Trim().EndsWith("\""))
-                {
-                    waitingMode = true;
-                    continue;
-                }
-                waitingMode = false;
                 collect[1] = collect[1].Trim();
                 collect[1] = collect[1].Replace("\"", "");
 
@@ -132,7 +129,7 @@ namespace PockItKnife
             if (objectToInit == null)
                 throw new ArgumentNullException("objectToInit");
 
-            var prop = objectToInit.GetType().GetProperties();
+           var prop = typeof(T).GetProperties();
 
             prop.ForEach((p) => p.CanWrite, (p) => {
                 string val;
