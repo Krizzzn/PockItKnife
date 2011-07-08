@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 namespace PockItKnifeTest
 {
     
@@ -140,6 +141,20 @@ namespace PockItKnifeTest
 
             //ASSERT
             
+        }
+
+        [TestMethod]
+        public void ParseCommandLineArguments_routes_commandline_arguments()
+        {
+            //ARRANGE
+            var cmd = new[] { "a", "b", "c" };
+            
+            //ACT
+            var result = cmd.ParseCommandlineArguments();
+
+            //ASSERT
+            result["c"].Should().Be("true");
+            result["a"].Should().Be("b");
         }
     }
 }

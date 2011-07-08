@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandlineArguments.cs" />
     <Compile Include="Crypt.cs" />
     <Compile Include="Enumerables.cs" />
     <Compile Include="String.cs" />

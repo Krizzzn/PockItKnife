@@ -1,7 +1,16 @@
 POCKITKNIFE...
 
 is a small utility assembly with convenient extension methods.
-It currently features a String Format Injector, WeakCrypto, ForEach() for IEnumerable<T> and other string extensions.
+
+Current Features:
+* automagical Commandline Parser
+* String Format Injector
+* WeakCrypto
+* ForEach() for IEnumerable<T> 
+
+* other string extensions
+
+The test project contains references to FluentAssertions using NuGet. The binaries are not included into this package.
 
 
 

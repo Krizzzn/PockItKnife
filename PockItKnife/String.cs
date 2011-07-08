@@ -42,6 +42,16 @@ namespace System
         {
             return string.IsNullOrEmpty(input);
         }
+
+        /// <summary>
+        /// Provides a simple way to parse commandline-style arguments.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static PockItKnife.CommandlineArguments ParseCommandlineArguments(this string[] input)
+        {
+            return PockItKnife.CommandlineArguments.ParseCommandLineArguments(input);
+        }
     }
 
 }
