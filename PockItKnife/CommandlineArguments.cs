@@ -11,6 +11,8 @@ namespace PockItKnife
     /// </summary>
     public class CommandlineArguments
     {
+        public const string DEFAULT_HELPFILE = "HELP";
+
         private string[] _arguments;
         private List<KeyValuePair<string,string>> _parsedArguments;
 
@@ -121,6 +123,7 @@ namespace PockItKnife
         /// Automagically assigns parameters to a given object's properties. The object's property names must either conform to the 
         /// commandline arguments, or feature the PockItKnife.CommandlineArguments.AutomagicLoadAttribute.
         /// Can handle boolean, string, int, double, and float values
+        /// Properties must be public and must be writable.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objectToInit"></param>
@@ -153,6 +156,132 @@ namespace PockItKnife
                 else if (p.PropertyType == typeof(float))
                     p.SetValue((object)objectToInit, float.Parse(val), null);
             });
+        }
+
+        /// <summary>
+        /// If the Help flag is omitted, this method reads and prints a file named HELP inside the calling assembly to the Console and returns true.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        /// <returns></returns>
+        public bool PrintHelpfileIfRequested()
+        {
+            if (this["help"] != null)
+            {
+                PrintHelpfile(DEFAULT_HELPFILE, Console.WriteLine, System.Reflection.Assembly.GetCallingAssembly());
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// If the Help flag is omitted, this method reads and prints a file named HELP inside the calling assembly to the delegate and returns true.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        /// <returns></returns>
+        public bool PrintHelpfileIfRequested(Action<string> printTo)
+        {
+            if (this["help"] != null)
+            {
+                PrintHelpfile(DEFAULT_HELPFILE, printTo, System.Reflection.Assembly.GetCallingAssembly());
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// If the Help flag is omitted, this method reads and prints textFileNameInAssembly to the Console and returns true.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        /// <returns></returns>
+        public bool PrintHelpfileIfRequested(string textFileNameInAssembly) {
+            if (this["help"] != null)
+            {
+                PrintHelpfile(textFileNameInAssembly, System.Console.WriteLine, System.Reflection.Assembly.GetCallingAssembly());
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// If the Help flag is omitted, this method reads and prints textFileNameInAssembly to the delegate and returns true.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        /// <returns></returns>
+        public bool PrintHelpfileIfRequested(string textFileNameInAssembly, Action<string> printTo)
+        {
+            if (this["help"] != null)
+            {
+                PrintHelpfile(textFileNameInAssembly, printTo, System.Reflection.Assembly.GetCallingAssembly());
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Trys to load a File named HELP from the resources of the calling assembly. Prints the contents to the System.Console.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        public void PrintHelpfile()
+        {
+            PrintHelpfile(DEFAULT_HELPFILE, System.Console.WriteLine, System.Reflection.Assembly.GetCallingAssembly());
+        }
+
+        /// <summary>
+        /// Trys to load a File named HELP from the resources of the calling assembly. Prints the contents to the delegate.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        public void PrintHelpfile(Action<string> printTo)
+        {
+            PrintHelpfile(DEFAULT_HELPFILE, printTo, System.Reflection.Assembly.GetCallingAssembly());
+        }
+
+        /// <summary>
+        /// Trys to load a File from the resources of the calling assembly. Prints the contenst to the System.Console.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        public void PrintHelpfile(string textFileNameInAssembly)
+        {
+            PrintHelpfile(textFileNameInAssembly, Console.WriteLine, System.Reflection.Assembly.GetCallingAssembly());            
+        }
+
+        /// <summary>
+        /// Trys to load a File from the resources of the calling assembly. Prints the contenst to the delegate.
+        /// </summary>
+        /// <param name="textFileNameInAssembly"></param>
+        /// <param name="printTo"></param>
+        public void PrintHelpfile(string textFileNameInAssembly, Action<string> printTo)
+        {
+            PrintHelpfile(textFileNameInAssembly, printTo, System.Reflection.Assembly.GetCallingAssembly());
+        }
+
+        private void PrintHelpfile(string textFileNameInAssembly, Action<string> printTo, System.Reflection.Assembly assbly)
+        {
+            var resName = from name in assbly.GetManifestResourceNames()
+                          where name.ToLower().EndsWith(textFileNameInAssembly.ToLower())
+                          select name;
+
+            string text = default(string);
+            var fullResourceName = resName.FirstOrDefault();
+
+            if (fullResourceName == null)
+                throw new System.IO.FileNotFoundException("Could not find file {0} in the resources of assembly {1}.".Inject( textFileNameInAssembly, assbly.FullName ) );
+
+            using (System.IO.Stream stream = assbly.GetManifestResourceStream(fullResourceName))
+            {
+                Byte[] bytes = new Byte[stream.Length];
+
+                stream.Read(bytes, 0, (int)(stream.Length));
+                text = System.Text.UTF8Encoding.Default.GetString(bytes);
+            }
+
+            printTo(text);
         }
 
         /// <summary>

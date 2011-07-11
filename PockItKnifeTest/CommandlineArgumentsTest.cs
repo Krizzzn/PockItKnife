@@ -378,6 +378,163 @@ namespace PockItKnifeTest
             tc.param9.Should().BeTrue();
         }
 
+        [TestMethod]
+        public void PrintHelpfile__gets_default_helpfile_from_assemble_and_prints_it()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+            string assert = "";
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile( (s) => assert = s);
+
+            //ASSERT
+            assert.Should().Contain("Help!!");
+        }
+
+        [TestMethod]
+        public void PrintHelpfile__gets_specified_helpfile_from_assembly_and_prints_it()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+            string assert = "";
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile("HELP.txt", (s) => assert = s);
+
+            //ASSERT
+            assert.Should().Contain("Help!!");
+        }
+
+        [TestMethod]
+        public void PrintHelpfile__gets_specified_caseinsensitive_helpfile_from_assembly_and_prints_it()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+            string assert = "";
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile("HelP.txt", (s) => assert = s);
+
+            //ASSERT
+            assert.Should().Contain("Help!!");
+        }
+
+        [TestMethod]
+        [ExpectedException (typeof(System.IO.FileNotFoundException))]
+        public void PrintHelpfile__throws_file_not_found_exception()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+            string assert = "";
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile("He11lP.txt", (s) => assert = s);
+
+            //ASSERT
+            true.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void PrintHelpfile__default_does_not_fail()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile();
+
+            //ASSERT
+            true.Should().BeTrue();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.IO.FileNotFoundException))]
+        public void PrintHelpfile__default_does_fail()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile("YELP");
+
+            //ASSERT
+            true.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void PrintHelpfile__default_does_not_fail_2()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { };
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            args.PrintHelpfile("HELP");
+
+            //ASSERT
+            true.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void PrintHelpfileIfRequested__prints_to_delegate_if_help_flag_is_set()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { "/help" };
+            string assert = null;
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            var result = args.PrintHelpfileIfRequested("HELP", (s) => assert = s );
+
+            //ASSERT
+            result.Should().BeTrue();
+            assert.Should().Contain("Help!!");
+        }
+
+        [TestMethod]
+        public void PrintHelpfileIfRequested__does_not_print_to_delegate_if_help_flag_is_not_set()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { "/hulp" };
+            string assert = null;
+
+            //ACT
+            var args = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            var result = args.PrintHelpfileIfRequested("HELP", (s) => assert = s);
+
+            //ASSERT
+            result.Should().BeFalse();
+            assert.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void PrintHelpfileIfRequested__reacts_on_different_types_of_help_flags()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { "/help", "-help", "--help", "-?", "--?", "/?", "help", "?" };
+            int assert = 0;
+
+            Action<string> act = (s) => {
+                var args = new[] { s };
+                var cmdArg = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+                if (cmdArg.PrintHelpfileIfRequested((su) => assert++))
+                    assert++;
+            };
+
+            //ACT
+            cmdArgs.ForEach(act);
+
+            //ASSERT
+            assert.Should().Be(8 * 2);
+        }
+
         public class TestClass1 {
             public string param1 { get; set; }
             public string param2 { get; set; }

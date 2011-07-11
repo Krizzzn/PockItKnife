@@ -4,6 +4,19 @@ is a small utility assembly with convenient extension methods.
 
 Current Features:
 * automagical Commandline Parser
+	doing this:
+	    static void Main(params string[] param) {
+            var parser = param.ParseCommandlineArguments();
+            var setup = new SyncSvc.SyncSettings();
+            parser.AutomagicInit(setup);
+        }
+	will set the properties of the object setup automagically.
+
+* Help File Printer
+	checks the commandline for flags like /?, -?, --?, ?, /help, -help, --help or help, 
+	and displays the contents of a textfile file embedded in the calling assembly to an 
+	action<string> delegte.
+
 * String Format Injector
 * WeakCrypto
 * ForEach() for IEnumerable<T> 
