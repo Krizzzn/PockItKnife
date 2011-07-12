@@ -523,7 +523,7 @@ namespace PockItKnifeTest
 
             Action<string> act = (s) => {
                 var args = new[] { s };
-                var cmdArg = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+                var cmdArg = CommandlineArguments.ParseCommandLineArguments(args);
                 if (cmdArg.PrintHelpfileIfRequested((su) => assert++))
                     assert++;
             };

@@ -166,7 +166,7 @@ namespace PockItKnife
         /// <returns></returns>
         public bool PrintHelpfileIfRequested()
         {
-            if (this["help"] != null)
+            if (HasHelp())
             {
                 PrintHelpfile(DEFAULT_HELPFILE, Console.WriteLine, System.Reflection.Assembly.GetCallingAssembly());
                 return true;
@@ -182,7 +182,7 @@ namespace PockItKnife
         /// <returns></returns>
         public bool PrintHelpfileIfRequested(Action<string> printTo)
         {
-            if (this["help"] != null)
+            if (HasHelp())
             {
                 PrintHelpfile(DEFAULT_HELPFILE, printTo, System.Reflection.Assembly.GetCallingAssembly());
                 return true;
@@ -197,7 +197,7 @@ namespace PockItKnife
         /// <param name="printTo"></param>
         /// <returns></returns>
         public bool PrintHelpfileIfRequested(string textFileNameInAssembly) {
-            if (this["help"] != null)
+            if (HasHelp())
             {
                 PrintHelpfile(textFileNameInAssembly, System.Console.WriteLine, System.Reflection.Assembly.GetCallingAssembly());
                 return true;
@@ -213,12 +213,17 @@ namespace PockItKnife
         /// <returns></returns>
         public bool PrintHelpfileIfRequested(string textFileNameInAssembly, Action<string> printTo)
         {
-            if (this["help"] != null)
+            if (HasHelp())
             {
                 PrintHelpfile(textFileNameInAssembly, printTo, System.Reflection.Assembly.GetCallingAssembly());
                 return true;
             }
             return false;
+        }
+
+        private bool HasHelp()
+        {
+            return (this.Contains("help") || this.Contains("?"));
         }
 
         /// <summary>
