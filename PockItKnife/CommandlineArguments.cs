@@ -296,6 +296,11 @@ namespace PockItKnife
             return cmd;
         }
 
+        public bool Contains(string argument)
+        {
+            return !this[argument].IsNullOrEmpty();
+        }
+
         /// <summary>
         /// assign this attribute to properties of objects, that should be automagically loaded by PockItKnife.CommandlineArguments.AutomagicInit()
         /// this attribute specifies the name of the commandline argument, that shall be loaded.

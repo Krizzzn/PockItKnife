@@ -535,6 +535,34 @@ namespace PockItKnifeTest
             assert.Should().Be(8 * 2);
         }
 
+        [TestMethod]
+        public void Contains__false_if_argument_not_given()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { "/hulp" };
+
+            //ACT
+            var obj = cmdArgs.ParseCommandlineArguments();
+            bool result = obj.Contains("help");
+
+            //ASSERT
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Contains__true_if_argument_not_given()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { "/help" };
+
+            //ACT
+            var obj = cmdArgs.ParseCommandlineArguments();
+            bool result = obj.Contains("help");
+
+            //ASSERT
+            result.Should().BeTrue();
+        }
+
         public class TestClass1 {
             public string param1 { get; set; }
             public string param2 { get; set; }
