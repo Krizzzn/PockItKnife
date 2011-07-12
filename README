@@ -15,7 +15,7 @@ Current Features:
 * Help File Printer
 	checks the commandline for flags like /?, -?, --?, ?, /help, -help, --help or help, 
 	and displays the contents of a textfile file embedded in the calling assembly to an 
-	action<string> delegte.
+	action<string> delegate.
 
 * String Format Injector
 * WeakCrypto
