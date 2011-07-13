@@ -71,6 +71,7 @@ namespace PockItKnife
             Regex prefEx = new Regex(@"^[-/]{1,2}");
             Regex sepEx = new Regex(@"^[ :=]{1,2}$");
             Regex suffEx = new Regex(@"[ :=]$");
+            Regex splitParaEx = new Regex(@"(?<=[A-z0-9]{2})[:=](?=[A-z0-9]{2})");
 
             var args = new Stack<string>(_arguments.Reverse());
 
@@ -81,6 +82,12 @@ namespace PockItKnife
 
                 if (sepEx.IsMatch(bit))
                     continue;
+
+                if (splitParaEx.IsMatch(bit)) {
+                    var split = splitParaEx.Split(bit);
+                    split.Reverse().ForEach(args.Push);
+                    continue;
+                }
 
                 if (collect != null && prefEx.Match(bit).Success)
                 {

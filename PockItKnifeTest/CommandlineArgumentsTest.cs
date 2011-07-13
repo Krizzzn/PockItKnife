@@ -226,9 +226,36 @@ namespace PockItKnifeTest
 
             //ACT
             var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+            
             //ASSERT
-
             ca["flAg1"].Should().Be(@"ldap://blabla");
+        }
+
+        [TestMethod]
+        public void Indexer__can_handle_colon_or_equals()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { @"-flag1=bla", "flag2:blu" };
+
+            //ACT
+            var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+           
+            //ASSERT
+            ca["flag1"].Should().MatchEquivalentOf("bla");
+            ca["flag2"].Should().MatchEquivalentOf("blu");
+        }
+
+        [TestMethod]
+        public void Indexer__can_handle_colon_or_equals_with_multiple_words()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { @"-flag1=bla bli blu" };
+
+            //ACT
+            var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+
+            //ASSERT
+            ca["flag1"].Should().MatchEquivalentOf("bla bli blu");
         }
 
 
