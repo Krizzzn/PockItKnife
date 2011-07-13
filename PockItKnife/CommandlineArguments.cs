@@ -83,22 +83,21 @@ namespace PockItKnife
                 if (sepEx.IsMatch(bit))
                     continue;
 
-                if (splitParaEx.IsMatch(bit)) {
+                if (splitParaEx.IsMatch(bit) && collect == null)
+                {
                     var split = splitParaEx.Split(bit);
                     split.Reverse().ForEach(args.Push);
                     continue;
                 }
 
-                if (collect != null && prefEx.Match(bit).Success)
-                {
+                if (collect != null && prefEx.Match(bit).Success){
                     if (collect[1].IsNullOrEmpty())
                         collect[1] = "true";
                     this._parsedArguments.Add(NKV(collect));
                     collect = null;
                 }
 
-                if (collect == null && !bit.IsNullOrEmpty())
-                {
+                if (collect == null && !bit.IsNullOrEmpty()){
                     while (suffEx.IsMatch(bit))
                         bit = suffEx.Replace(bit, "");
 
