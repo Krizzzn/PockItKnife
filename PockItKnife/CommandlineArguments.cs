@@ -83,8 +83,7 @@ namespace PockItKnife
                 if (sepEx.IsMatch(bit))
                     continue;
 
-                if (splitParaEx.IsMatch(bit) && collect == null)
-                {
+                if (splitParaEx.IsMatch(bit) && collect == null){
                     var split = splitParaEx.Split(bit);
                     split.Reverse().ForEach(args.Push);
                     continue;
