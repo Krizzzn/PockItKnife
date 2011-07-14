@@ -42,6 +42,7 @@
     <Compile Include="CommandlineArguments.cs" />
     <Compile Include="Crypt.cs" />
     <Compile Include="Enumerables.cs" />
+    <Compile Include="Humanizers\HumanizeEnumerables.cs" />
     <Compile Include="String.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

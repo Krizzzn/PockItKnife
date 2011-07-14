@@ -55,6 +55,7 @@
     <Compile Include="CommandlineArgumentsTest.cs" />
     <Compile Include="CryptTest.cs" />
     <Compile Include="EnumerablesTest.cs" />
+    <Compile Include="HumanizeEnumerablesTest.cs" />
     <Compile Include="StringTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

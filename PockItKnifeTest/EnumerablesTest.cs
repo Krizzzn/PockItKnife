@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using FluentAssertions;
 
 namespace PockItKnifeTest
 {
@@ -161,6 +162,35 @@ namespace PockItKnifeTest
 
             //ASSERT
             Assert.AreEqual(9, assert);
+        }
+
+        [TestMethod]
+        public void Humanize__returns_humanizer()
+        {
+            //ARRANGE
+            string[] hum = new[] { "a", "b" }; 
+
+            //ACT
+            var result = hum.Humanize().ConcatWithAnd();
+
+            //ASSERT
+            result.Should().Match("a and b");
+        }
+
+        [TestMethod]
+        public void Humanize__handle_null_or_empty()
+        {
+            //ARRANGE
+            string[] hum1 = null;
+            string[] hum2 = new string[]{};
+
+            //ACT
+            var result1 = hum1.Humanize().ConcatWithAnd("nope");
+            var result2 = hum2.Humanize().ConcatWithAnd("nope");
+
+            //ASSERT
+            result1.Should().Match("nope");
+            result2.Should().Match("nope");
         }
     }
 }

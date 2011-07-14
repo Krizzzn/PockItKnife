@@ -17,6 +17,9 @@ Current Features:
 	and displays the contents of a textfile file embedded in the calling assembly to an 
 	action<string> delegate.
 
+* Humanizing Ienumerable<T>
+	converts lists into "a, b, c and d" or "a, b, c or d"
+
 * String Format Injector
 * WeakCrypto
 * ForEach() for IEnumerable<T> 

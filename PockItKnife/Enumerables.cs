@@ -42,5 +42,14 @@ namespace System
         {
             ForEach(coll, (t) => true, action);
         }
+
+        /// <summary>
+        /// Returns Humanize object, that is able to convert listoutput into "a, b, c and d" or "a, b, c or d"
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static PockItKnife.Humanizers.HumanizeEnumerables<T> Humanize<T>(this IEnumerable<T> coll)
+        {
+            return new PockItKnife.Humanizers.HumanizeEnumerables<T>(coll);
+        }
     }
 }
