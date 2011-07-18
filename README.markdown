@@ -1,10 +1,9 @@
 # POCKITKNIFE
 
-is a small utility assembly with convenient extension methods.
+...is a small utility assembly with convenient extension methods.
 
---------
 ### Current Features:
-* _automagical commandline parser_
+* **automagical commandline parser**
 	doing this:
 	```C#
 	    static void Main(params string[] param) {
@@ -15,21 +14,21 @@ is a small utility assembly with convenient extension methods.
 	```
 	will set the properties of the object setup automagically.
 
-* _help file printer_
+* **help file printer**
 	checks the commandline for flags like /?, -?, --?, ?, /help, -help, --help or help, and displays the contents of a textfile file embedded in the calling assembly to an Action<string> delegate.
 
-* _humanizing IEnumerable<T>_
+* **humanizing IEnumerable<T>**
 	converts lists into "a, b, c and d" or "a, b, c or d"
 
-* _string format injector_
+* **string format injector**
 	.Inject(string format, params object[]) extension method for strings
 
-* _WeakCrypto_
+* **WeakCrypto**
 	Extention Method for strings, to quickly En- and De-crypt strings. This is not safe, but can be used to avoid clear text passwords in config files.
 
-* _ForEach() for IEnumerable<T>_
+* **ForEach() for IEnumerable<T>**
 	Call an Action<T> for each object in an IEnumerable.
 
-* other string extensions
+* **other string extensions**
 
 The test project contains references to FluentAssertions using NuGet. The binaries are not included into this package.
