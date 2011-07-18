@@ -246,7 +246,7 @@ namespace PockItKnifeTest
         }
 
         [TestMethod]
-        public void Indexer__can_handle_colon_or_equals_with_multiple_words()
+        public void Indexer__can_handle_equals_with_multiple_words()
         {
             //ARRANGE
             var cmdArgs = new string[] { @"-flag1=bla bli blu" };
@@ -256,6 +256,19 @@ namespace PockItKnifeTest
 
             //ASSERT
             ca["flag1"].Should().MatchEquivalentOf("bla bli blu");
+        }
+
+        [TestMethod]
+        public void Indexer__can_handle_colon_and_single_number()
+        {
+            //ARRANGE
+            var cmdArgs = new string[] { @"-flag1:1" };
+
+            //ACT
+            var ca = CommandlineArguments.ParseCommandLineArguments(cmdArgs);
+
+            //ASSERT
+            ca["flag1"].Should().MatchEquivalentOf("1");
         }
 
 

@@ -71,7 +71,7 @@ namespace PockItKnife
             Regex prefEx = new Regex(@"^[-/]{1,2}");
             Regex sepEx = new Regex(@"^[ :=]{1,2}$");
             Regex suffEx = new Regex(@"[ :=]$");
-            Regex splitParaEx = new Regex(@"(?<=[A-z0-9]{2})[:=](?=.{2})");
+            Regex splitParaEx = new Regex(@"(?<=[A-z0-9]{2})[:=](?=.{1})");
 
             var args = new Stack<string>(_arguments.Reverse());
 
