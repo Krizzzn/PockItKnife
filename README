@@ -1,28 +1,34 @@
-POCKITKNIFE...
+# POCKITKNIFE
 
 is a small utility assembly with convenient extension methods.
 
-Current Features:
-* automagical Commandline Parser
+--------
+### Current Features:
+* _automagical commandline parser_
 	doing this:
+	```C#
 	    static void Main(params string[] param) {
             var parser = param.ParseCommandlineArguments();
             var setup = new SyncSvc.SyncSettings();
             parser.AutomagicInit(setup);
         }
+	```
 	will set the properties of the object setup automagically.
 
-* Help File Printer
-	checks the commandline for flags like /?, -?, --?, ?, /help, -help, --help or help, 
-	and displays the contents of a textfile file embedded in the calling assembly to an 
-	action<string> delegate.
+* _help file printer_
+	checks the commandline for flags like /?, -?, --?, ?, /help, -help, --help or help, and displays the contents of a textfile file embedded in the calling assembly to an Action<string> delegate.
 
-* Humanizing Ienumerable<T>
+* _humanizing IEnumerable<T>_
 	converts lists into "a, b, c and d" or "a, b, c or d"
 
-* String Format Injector
-* WeakCrypto
-* ForEach() for IEnumerable<T> 
+* _string format injector_
+	.Inject(string format, params object[]) extension method for strings
+
+* _WeakCrypto_
+	Extention Method for strings, to quickly En- and De-crypt strings. This is not safe, but can be used to avoid clear text passwords in config files.
+
+* _ForEach() for IEnumerable<T>_
+	Call an Action<T> for each object in an IEnumerable.
 
 * other string extensions
 
