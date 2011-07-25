@@ -1,6 +1,7 @@
 ﻿using PockItKnife;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using FluentAssertions;
 
 namespace PockItKnifeTest
 {
@@ -216,6 +217,20 @@ namespace PockItKnifeTest
 
             //ASSERT
             Assert.AreEqual("mebefooo", decrypted);
+        }
+
+        [TestMethod]
+        public void De__wont_fail_if_source_is_not_encrypted()
+        {
+            //ARRANGE
+            string unencrypted = "this is fooooooo";
+
+            //ACT
+            var dec = new Crypt(unencrypted);
+            var result = dec.De("somepassword");
+
+            //ASSERT
+            result.Should().Be(unencrypted);
         }
     }
 }
