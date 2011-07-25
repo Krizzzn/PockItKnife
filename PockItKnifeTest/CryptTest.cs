@@ -220,17 +220,45 @@ namespace PockItKnifeTest
         }
 
         [TestMethod]
-        public void De__wont_fail_if_source_is_not_encrypted()
+        public void De__wont_fail_if_source_is_not_encrypted_using_try_catch_for_invalid_length_exception()
         {
             //ARRANGE
-            string unencrypted = "this is fooooooo";
+            string unencrypted1 = "this is fooooooo";
 
             //ACT
-            var dec = new Crypt(unencrypted);
-            var result = dec.De("somepassword");
+            var dec = new Crypt(unencrypted1);
+            var result1 = dec.De("somepassword");
 
             //ASSERT
-            result.Should().Be(unencrypted);
+            result1.Should().Be(unencrypted1);
+        }
+
+        [TestMethod]
+        public void De__wont_fail_if_source_is_not_encrypted_using_try_catch_for_invalid_character_exception()
+        {
+            //ARRANGE
+            string unencrypted1 = "blabla!";
+
+            //ACT
+            var dec = new Crypt(unencrypted1);
+            var result1 = dec.De("somepassword");
+
+            //ASSERT
+            result1.Should().Be(unencrypted1);
+        }
+
+        [TestMethod]
+        public void de__wont_fail_if_source_is_not_encrypted_using_try_catch_cryptographicexception()
+        {
+            //ARRANGE
+            string unencrypted1 = "buhtial5";
+
+            //ACT
+            var dec = new Crypt(unencrypted1);
+            var result1 = dec.De("somepassword");
+
+            //ASSERT
+            result1.Should().Be(unencrypted1);
         }
     }
 }

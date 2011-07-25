@@ -30,13 +30,18 @@ namespace PockItKnife
             if (password.Length < 8)
                 throw new ArgumentException("cyperSeed must be longer that 7 characters");
 
-            try {
+            try
+            {
                 return this.DecryptString(_forCrypto, password);
             }
-            catch (System.FormatException ex){
-                if (ex.Message.Contains("Invalid length for a Base-64 char array"))
+            catch (System.FormatException ex)
+            {
+                if (ex.Message.Contains("Base-64"))
                     return _forCrypto;
                 throw;
+            }
+            catch (CryptographicException) {
+                return _forCrypto;
             }
         }
 
