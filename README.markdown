@@ -29,6 +29,8 @@
 * **ForEach() for IEnumerable<T>**
 	Call an Action<T> for each object in an IEnumerable.
 
+* **Embedded Resource reader extension for System.Reflection.Assembly**
+
 * **other string extensions**
 
 The test project contains references to FluentAssertions using NuGet. The binaries are not included into this package.

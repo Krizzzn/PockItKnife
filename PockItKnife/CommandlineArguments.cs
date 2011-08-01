@@ -272,25 +272,7 @@ namespace PockItKnife
 
         private void PrintHelpfile(string textFileNameInAssembly, Action<string> printTo, System.Reflection.Assembly assbly)
         {
-            var resName = from name in assbly.GetManifestResourceNames()
-                          where name.ToLower().EndsWith(textFileNameInAssembly.ToLower())
-                          select name;
-
-            string text = default(string);
-            var fullResourceName = resName.FirstOrDefault();
-
-            if (fullResourceName == null)
-                throw new System.IO.FileNotFoundException("Could not find file {0} in the resources of assembly {1}.".Inject( textFileNameInAssembly, assbly.FullName ) );
-
-            using (System.IO.Stream stream = assbly.GetManifestResourceStream(fullResourceName))
-            {
-                Byte[] bytes = new Byte[stream.Length];
-
-                stream.Read(bytes, 0, (int)(stream.Length));
-                text = System.Text.UTF8Encoding.Default.GetString(bytes);
-            }
-
-            printTo(text);
+            printTo(assbly.LoadEmbeddedFile(textFileNameInAssembly));
         }
 
         /// <summary>
