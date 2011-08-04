@@ -156,5 +156,94 @@ namespace PockItKnifeTest
             result["c"].Should().Be("true");
             result["a"].Should().Be("b");
         }
+
+        [TestMethod]
+        public void Limit__wont_fail_on_null_or_empty()
+        {
+            //ARRANGE
+            string target = null;
+
+            //ACT
+            var result1 = target.Limit(12, "");
+            target = "";
+            var result2 = target.Limit(12, "");
+
+            //ASSERT
+            result1.Should().BeNull();
+            result2.Should().BeBlank();
+        }
+
+        [TestMethod]
+        public void Limit__wont_fail_on_wrong_parameters()
+        {
+            //ARRANGE
+            string test = "abc";
+
+            //ACT
+            var result1 = test.Limit(-1, "");
+            var result2 = test.Limit(0, "...");
+            var result3 = test.Limit(1, null);
+
+            //ASSERT
+            result1.Should().BeEquivalentTo("");
+            result2.Should().BeEquivalentTo("");
+            result3.Should().BeEquivalentTo("a");
+        }
+
+        [TestMethod]
+        public void Limit__cuts_text()
+        {
+            //ARRANGE
+            string test = "abcdefgehijk";
+            
+            //ACT
+            var result1 = test.Limit(5, "...");
+            var result2 = test.Limit(5, ".");
+
+            //ASSERT
+            result1.Should().BeEquivalentTo("ab...");
+            result2.Should().BeEquivalentTo("abcd.");
+        }
+
+        [TestMethod]
+        public void Limit__does_not_cut_text()
+        {
+            //ARRANGE
+            string test = "abcdef";
+
+            //ACT
+            var result1 = test.Limit(6, "...");
+            var result2 = test.Limit(2000, "...");
+
+            //ASSERT
+            result1.Should().BeEquivalentTo(test);
+            result2.Should().BeEquivalentTo(test);
+        }
+
+        [TestMethod]
+        public void Limit__trims_whitespaces()
+        {
+            //ARRANGE
+            string subject = "foo   O_o";
+
+            //ACT
+            var result = subject.Limit(7);
+
+            //ASSERT
+            result.Should().BeEquivalentTo("foo...");
+        }
+
+        [TestMethod]
+        public void Limit__use_overload()
+        {
+            //ARRANGE
+            var test = "123456789";
+
+            //ACT
+
+            //ASSERT
+            test.Limit(9).Should().Be(test.Limit(9, "..."));
+            test.Limit(3).Should().Be(test.Limit(3, "..."));
+        }
     }
 }

@@ -43,6 +43,29 @@ namespace System
             return string.IsNullOrEmpty(input);
         }
 
+        public static string Limit(this string input, int length, string append)
+        {
+            if (input.IsNullOrEmpty())
+                return input;
+            if (length <= 0)
+                return "";
+
+            if (append == null || append.Length > length)
+                append = "";
+
+            if (input.Length > length) {
+                input = input.Substring(0, length - append.Length);
+                input = input.Trim();
+                input += append;
+            }
+            return input;
+        }
+
+        public static string Limit(this string input, int length)
+        {
+            return input.Limit(length, "...");
+        }
+
         /// <summary>
         /// Provides a simple way to parse commandline-style arguments.
         /// </summary>

@@ -32,5 +32,7 @@
 * **Embedded Resource reader extension for System.Reflection.Assembly**
 
 * **other string extensions**
+	such as: Limit() and IsNullOrEmpty()
 
 The test project contains references to FluentAssertions using NuGet. The binaries are not included into this package.
+(repository at https://github.com/Krizzzn/PockItKnife)
