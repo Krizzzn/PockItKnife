@@ -1,12 +1,12 @@
-﻿using PockItKnife;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PockItKnife;
 
 namespace PockItKnifeTest
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for CryptTest and is intended
     ///to contain all CryptTest Unit Tests
@@ -70,23 +70,24 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var c = new Crypt(null);
-            var d = new Crypt("");
+            string nullString = null;
+            var c = new Crypt_Accessor(nullString);
+            var d = new Crypt_Accessor("");
 
             //ASSERT
             Assert.IsTrue(true);
         }
 
         [TestMethod]
-        [ExpectedException (typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void En_ThrowsErrorCryptoSeedNull()
         {
             //ARRANGE
 
             //ACT
-            var c = new Crypt("blabla");
+            var c = new Crypt_Accessor("blabla");
             c.En(null);
-                
+
             //ASSERT
             Assert.IsTrue(true);
         }
@@ -98,14 +99,12 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var c = new Crypt("blabla");
+            var c = new Crypt_Accessor("blabla");
 
-            try
-            {
+            try {
                 c.En("1234567");
             }
-            catch (ArgumentException)
-            {
+            catch (ArgumentException) {
                 c.En("12");
             }
 
@@ -119,8 +118,9 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var n = new Crypt(null).En("passwort1");
-            var e = new Crypt("").En("passwort1");
+            string nullString = null;
+            var n = new Crypt_Accessor(nullString).En("passwort1");
+            var e = new Crypt_Accessor("").En("passwort1");
 
             //ASSERT
             Assert.IsNull(n);
@@ -134,7 +134,7 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var c = new Crypt("blabla");
+            var c = new Crypt_Accessor("blabla");
             c.De(null);
 
             //ASSERT
@@ -148,14 +148,12 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var c = new Crypt("blabla");
+            var c = new Crypt_Accessor("blabla");
 
-            try
-            {
+            try {
                 c.De("1234567");
             }
-            catch (ArgumentException)
-            {
+            catch (ArgumentException) {
                 c.De("12");
             }
 
@@ -169,8 +167,10 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var n = new Crypt(null).De("passwort1");
-            var e = new Crypt("").De("passwort1");
+            string nullString = null;
+
+            var n = new Crypt_Accessor(nullString).De("passwort1");
+            var e = new Crypt_Accessor("").De("passwort1");
 
             //ASSERT
             Assert.IsNull(n);
@@ -183,9 +183,9 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var c = new Crypt("blabla");
+            var c = new Crypt_Accessor("blabla");
             var result = c.En("thepassword");
-            
+
             //ASSERT
             Assert.AreNotEqual("blabla", result);
         }
@@ -196,7 +196,7 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT
-            var c = new Crypt("3sKchzyYTVDb0KeroTKuVQ==");
+            var c = new Crypt_Accessor("3sKchzyYTVDb0KeroTKuVQ==");
             var result = c.De("thepassword");
 
             //ASSERT
@@ -209,10 +209,10 @@ namespace PockItKnifeTest
             //ARRANGE
 
             //ACT            
-            var enc = new Crypt("mebefooo");
+            var enc = new Crypt_Accessor("mebefooo");
             var encrypted = enc.En("thepassword");
 
-            var dec = new Crypt(encrypted);
+            var dec = new Crypt_Accessor(encrypted);
             var decrypted = dec.De("thepassword");
 
             //ASSERT
@@ -226,7 +226,7 @@ namespace PockItKnifeTest
             string unencrypted1 = "this is fooooooo";
 
             //ACT
-            var dec = new Crypt(unencrypted1);
+            var dec = new Crypt_Accessor(unencrypted1);
             var result1 = dec.De("somepassword");
 
             //ASSERT
@@ -240,7 +240,7 @@ namespace PockItKnifeTest
             string unencrypted1 = "blabla!";
 
             //ACT
-            var dec = new Crypt(unencrypted1);
+            var dec = new Crypt_Accessor(unencrypted1);
             var result1 = dec.De("somepassword");
 
             //ASSERT
@@ -254,7 +254,7 @@ namespace PockItKnifeTest
             string unencrypted1 = "buhtial5";
 
             //ACT
-            var dec = new Crypt(unencrypted1);
+            var dec = new Crypt_Accessor(unencrypted1);
             var result1 = dec.De("somepassword");
 
             //ASSERT

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Security.Cryptography;
-
 namespace PockItKnife
 {
     /// <summary>
@@ -24,18 +20,16 @@ namespace PockItKnife
         /// <param name="password">Password, used to decrypt the string.</param>
         /// <returns></returns>
         public string De(string password)
-        { 
+        {
             if (password == null)
                 throw new ArgumentNullException("cyperSeed may not be null");
             if (password.Length < 8)
                 throw new ArgumentException("cyperSeed must be longer that 7 characters");
 
-            try
-            {
+            try {
                 return this.DecryptString(_forCrypto, password);
             }
-            catch (System.FormatException ex)
-            {
+            catch (System.FormatException ex) {
                 if (ex.Message.Contains("Base-64"))
                     return _forCrypto;
                 throw;

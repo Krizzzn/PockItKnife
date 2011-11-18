@@ -8,6 +8,8 @@
 *.dll.config
 *.cache
 *.suo
+*.snk
+*publickey*
 # Exclude dlls if they’re in the NuGet packages directory
 /packages/*/lib/*
 # VS Upgrade stuff #
@@ -19,6 +21,7 @@ _UpgradeReport_Files/
 bin/
 obj/
 TestResults/
+
 # Web publish log #
 ###################
 *.Publish.xml
@@ -48,3 +51,5 @@ TestResults/
 ehthumbs.db
 Icon?
 Thumbs.db
+
+!codesigning/empty

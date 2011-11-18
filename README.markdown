@@ -1,6 +1,7 @@
 # POCKITKNIFE
 
 ...is a small utility assembly with convenient extension methods.
+(repository at https://github.com/Krizzzn/PockItKnife)
 
 ### Current Features:
 * **automagical commandline parser**
@@ -35,4 +36,3 @@
 	such as: Limit() and IsNullOrEmpty()
 
 The test project contains references to FluentAssertions using NuGet. The binaries are not included into this package.
-(repository at https://github.com/Krizzzn/PockItKnife)
