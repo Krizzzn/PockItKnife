@@ -1,7 +1,8 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PockItKnife;
+using NUnit.Framework;
 
 namespace PockItKnifeTest
 {
@@ -11,7 +12,7 @@ namespace PockItKnifeTest
     ///This is a test class for CryptTest and is intended
     ///to contain all CryptTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture()]
     public class CryptTest
     {
 
@@ -34,37 +35,7 @@ namespace PockItKnifeTest
             }
         }
 
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-        [TestMethod]
+        [Test]
         public void ctor_CanHandleNullValues()
         {
             //ARRANGE
@@ -78,7 +49,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void En_ThrowsErrorCryptoSeedNull()
         {
@@ -92,7 +63,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void En_ThrowsErrorCryptoSeedLessThan8Characters()
         {
@@ -112,7 +83,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void En_CanHandleNullOrEmpty()
         {
             //ARRANGE
@@ -127,7 +98,7 @@ namespace PockItKnifeTest
             Assert.AreEqual("", e);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void De_ThrowsErrorCryptoSeedNull()
         {
@@ -141,7 +112,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void De_ThrowsErrorCryptoSeedLessThan8Characters()
         {
@@ -161,7 +132,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void De_CanHandleNullOrEmpty()
         {
             //ARRANGE
@@ -177,7 +148,7 @@ namespace PockItKnifeTest
             Assert.AreEqual("", e);
         }
 
-        [TestMethod]
+        [Test]
         public void En_StrangifiesInput()
         {
             //ARRANGE
@@ -190,7 +161,7 @@ namespace PockItKnifeTest
             Assert.AreNotEqual("blabla", result);
         }
 
-        [TestMethod]
+        [Test]
         public void De_StrangifiesInput()
         {
             //ARRANGE
@@ -203,7 +174,7 @@ namespace PockItKnifeTest
             Assert.AreEqual("blabla", result);
         }
 
-        [TestMethod]
+        [Test]
         public void DeEn_AreInvertible()
         {
             //ARRANGE
@@ -219,7 +190,7 @@ namespace PockItKnifeTest
             Assert.AreEqual("mebefooo", decrypted);
         }
 
-        [TestMethod]
+        [Test]
         public void De__wont_fail_if_source_is_not_encrypted_using_try_catch_for_invalid_length_exception()
         {
             //ARRANGE
@@ -233,7 +204,7 @@ namespace PockItKnifeTest
             result1.Should().Be(unencrypted1);
         }
 
-        [TestMethod]
+        [Test]
         public void De__wont_fail_if_source_is_not_encrypted_using_try_catch_for_invalid_character_exception()
         {
             //ARRANGE
@@ -247,7 +218,7 @@ namespace PockItKnifeTest
             result1.Should().Be(unencrypted1);
         }
 
-        [TestMethod]
+        [Test]
         public void de__wont_fail_if_source_is_not_encrypted_using_try_catch_cryptographicexception()
         {
             //ARRANGE

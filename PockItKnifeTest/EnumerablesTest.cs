@@ -1,7 +1,8 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System.Collections.Generic;
 using FluentAssertions;
+using NUnit.Framework;
 
 namespace PockItKnifeTest
 {
@@ -11,7 +12,7 @@ namespace PockItKnifeTest
     ///This is a test class for PockItKnifeTest and is intended
     ///to contain all PockItKnifeTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture()]
     public class EnumerablesTest
     {
 
@@ -64,7 +65,7 @@ namespace PockItKnifeTest
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void ForEach_HandleNull()
         {
             //ARRANGE
@@ -77,7 +78,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException (typeof(ArgumentNullException))]
         public void ForEach_ThrowsIfActionIsNull()
         {
@@ -91,7 +92,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void ForEach_PerformsActionOnEveryElemet()
         {
             //ARRANGE
@@ -105,7 +106,7 @@ namespace PockItKnifeTest
             Assert.AreEqual(97 + 98, assert);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException (typeof(ArgumentNullException))]
         public void ForEach_ThrowIfPredicateEmpty()
         {
@@ -119,7 +120,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ForEach_ThrowIfActionIsNullAndPredicateIsNot()
         {
@@ -133,7 +134,7 @@ namespace PockItKnifeTest
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         public void ForEach_PerfomActionOnlyOnPredicateMatches()
         {
             //ARRANGE
@@ -147,7 +148,7 @@ namespace PockItKnifeTest
             Assert.AreEqual(15, assert);
         }
 
-        [TestMethod]
+        [Test]
         public void ForEach_DoesNotInterfereWithDefaultForEachOnList()
         {
             //ARRANGE
@@ -164,7 +165,7 @@ namespace PockItKnifeTest
             Assert.AreEqual(9, assert);
         }
 
-        [TestMethod]
+        [Test]
         public void Humanize__returns_humanizer()
         {
             //ARRANGE
@@ -177,7 +178,7 @@ namespace PockItKnifeTest
             result.Should().Match("a and b");
         }
 
-        [TestMethod]
+        [Test]
         public void Humanize__handle_null_or_empty()
         {
             //ARRANGE

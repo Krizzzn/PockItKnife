@@ -12,6 +12,7 @@
 *publickey*
 # Exclude dlls if they’re in the NuGet packages directory
 /packages/*/lib/*
+/packages/*
 # VS Upgrade stuff #
 ####################
 UpgradeLog.XML

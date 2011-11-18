@@ -1,6 +1,7 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using FluentAssertions;
+using NUnit.Framework;
 namespace PockItKnifeTest
 {
     
@@ -9,7 +10,7 @@ namespace PockItKnifeTest
     ///This is a test class for PockItKnifeTest and is intended
     ///to contain all PockItKnifeTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture()]
     public class StringTest
     {
 
@@ -62,7 +63,7 @@ namespace PockItKnifeTest
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void Inject_CanHandleNull()
         {
             //ARRANGE
@@ -75,7 +76,7 @@ namespace PockItKnifeTest
             Assert.IsNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void Inject_CanHandleNoArguments()
         {
             //ARRANGE
@@ -88,7 +89,7 @@ namespace PockItKnifeTest
             Assert.AreEqual("bla bla", result);                        
         }
 
-        [TestMethod]
+        [Test]
         public void Inject_AppliesFormatString()
         {
             //ARRANGE
@@ -101,8 +102,10 @@ namespace PockItKnifeTest
             Assert.AreEqual("bla bla blubb!", result);                                    
         }
 
-        [TestMethod]
-        public void Crypt_CanHandleNullValue()
+        [TestCase(null)]
+        [TestCase("")]
+        [Test]
+        public void Crypt_CanHandleNullValue(string value)
         {
             //ARRANGE
             string handle = null;
@@ -115,7 +118,7 @@ namespace PockItKnifeTest
 
         }
 
-        [TestMethod]
+        [Test]
         public void Crypt_CanHandleEmptyValue()
         {
             //ARRANGE
@@ -128,7 +131,7 @@ namespace PockItKnifeTest
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void IsNullOrEmpty__behaves_like_original()
         {
             //ARRANGE
@@ -143,7 +146,7 @@ namespace PockItKnifeTest
             
         }
 
-        [TestMethod]
+        [Test]
         public void ParseCommandLineArguments_routes_commandline_arguments()
         {
             //ARRANGE
@@ -157,7 +160,7 @@ namespace PockItKnifeTest
             result["a"].Should().Be("b");
         }
 
-        [TestMethod]
+        [Test]
         public void Limit__wont_fail_on_null_or_empty()
         {
             //ARRANGE
@@ -173,7 +176,7 @@ namespace PockItKnifeTest
             result2.Should().BeBlank();
         }
 
-        [TestMethod]
+        [Test]
         public void Limit__wont_fail_on_wrong_parameters()
         {
             //ARRANGE
@@ -190,7 +193,7 @@ namespace PockItKnifeTest
             result3.Should().BeEquivalentTo("a");
         }
 
-        [TestMethod]
+        [Test]
         public void Limit__cuts_text()
         {
             //ARRANGE
@@ -205,7 +208,7 @@ namespace PockItKnifeTest
             result2.Should().BeEquivalentTo("abcd.");
         }
 
-        [TestMethod]
+        [Test]
         public void Limit__does_not_cut_text()
         {
             //ARRANGE
@@ -220,7 +223,7 @@ namespace PockItKnifeTest
             result2.Should().BeEquivalentTo(test);
         }
 
-        [TestMethod]
+        [Test]
         public void Limit__trims_whitespaces()
         {
             //ARRANGE
@@ -233,7 +236,7 @@ namespace PockItKnifeTest
             result.Should().BeEquivalentTo("foo...");
         }
 
-        [TestMethod]
+        [Test]
         public void Limit__use_overload()
         {
             //ARRANGE

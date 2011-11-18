@@ -1,8 +1,9 @@
 ﻿using PockItKnife.Humanizers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using NUnit.Framework;
 
 namespace PockItKnifeTest
 {
@@ -12,7 +13,7 @@ namespace PockItKnifeTest
     ///This is a test class for HumanizeEnumerablesTest and is intended
     ///to contain all HumanizeEnumerablesTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture()]
     public class HumanizeEnumerablesTest
     {
 
@@ -66,7 +67,7 @@ namespace PockItKnifeTest
         #endregion
 
 
-        [TestMethod]
+        [Test]
         public void ctor__sets_subject()
         {
             //ARRANGE
@@ -79,7 +80,7 @@ namespace PockItKnifeTest
             x.Subject.Should().BeEquivalentTo(enumr);
         }
 
-        [TestMethod]
+        [Test]
         public void ctor__does_not_fail_on_null()
         {
             //ARRANGE
@@ -92,7 +93,7 @@ namespace PockItKnifeTest
             x.Subject.Should().BeNull();
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWithAnd__returns_concatenated_string()
         {
             //ARRANGE
@@ -106,7 +107,7 @@ namespace PockItKnifeTest
             result.Should().MatchEquivalentOf("a, ab and aa");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWithAnd__returns_coalesce_string()
         {
             //ARRANGE
@@ -120,7 +121,7 @@ namespace PockItKnifeTest
             result.Should().MatchEquivalentOf("nope");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWithOr__returns_concatenated_string()
         {
             //ARRANGE
@@ -134,7 +135,7 @@ namespace PockItKnifeTest
             result.Should().MatchEquivalentOf("a, ab or aa");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWithOr__returns_coalesce_string()
         {
             //ARRANGE
@@ -148,7 +149,7 @@ namespace PockItKnifeTest
             result.Should().MatchEquivalentOf("nope");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWith__does_not_fail_on_subject_null_or_empty()
         {
             //ARRANGE
@@ -167,7 +168,7 @@ namespace PockItKnifeTest
             result2.Should().NotBeNull();
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWith__uses_coalesce_to_replace_empty_strings()
         {
             //ARRANGE
@@ -186,7 +187,7 @@ namespace PockItKnifeTest
             result2.Should().Match("nö");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWith__filters_null_or_empty_values_and_trims_values()
         {
             //ARRANGE
@@ -200,7 +201,7 @@ namespace PockItKnifeTest
             result2.Should().Match("a <-> d");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWith__works_on_different_scenarios()
         {
             //ARRANGE
@@ -229,7 +230,7 @@ namespace PockItKnifeTest
             result4.Should().Match("a/ab/aa-->cd");
         }
 
-        [TestMethod]
+        [Test]
         public void ConcatWith__handle_different_types()
         {
             //ARRANGE

@@ -1,8 +1,9 @@
 ﻿using PockItKnife;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 using FluentAssertions;
 using System.Linq;
+using NUnit.Framework;
 
 namespace PockItKnifeTest
 {
@@ -12,7 +13,7 @@ namespace PockItKnifeTest
     ///This is a test class for CommandlineArgumentsTest and is intended
     ///to contain all CommandlineArgumentsTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture()]
     public class CommandlineArgumentsTest
     {
 
@@ -65,7 +66,7 @@ namespace PockItKnifeTest
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void ParseCommandLineArguments__does_not_fail_on_null_or_empty()
         {
             //ARRANGE
@@ -83,7 +84,7 @@ namespace PockItKnifeTest
             ca2.Should().BeOfType<CommandlineArguments>();
         }
 
-        [TestMethod]
+        [Test]
         public void Count__gets_count_of_arguments()
         {
             //ARRANGE
@@ -103,7 +104,7 @@ namespace PockItKnifeTest
             ca3.Count.Should().Be(0);
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__returns_null_for_not_existant()
         {
             //ARRANGE
@@ -116,7 +117,7 @@ namespace PockItKnifeTest
             ca["notthere"].Should().BeNull();
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__returns_boolean_string_values_for_flags()
         {
             //ARRANGE
@@ -130,7 +131,7 @@ namespace PockItKnifeTest
             Convert.ToBoolean(ca["flag"]).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__finds_results_for_different_param_styles()
         {
             //ARRANGE
@@ -145,7 +146,7 @@ namespace PockItKnifeTest
             ca["flag3"].Should().Be("true");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__findes_value_for_arguments_colon()
         {
             //ARRANGE
@@ -160,7 +161,7 @@ namespace PockItKnifeTest
             ca["flag3"].Should().Be("me be value", "flag3");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__finds_path()
         {
             //ARRANGE
@@ -173,7 +174,7 @@ namespace PockItKnifeTest
             ca["flag1"].Should().Be(@"C:\bla\bla\bla.txt");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__finds_flags_without_any_delimiters()
         {
             //ARRANGE
@@ -188,7 +189,7 @@ namespace PockItKnifeTest
             ca["true"].Should().Be(@"true");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__finds_with_equal()
         {
             //ARRANGE
@@ -203,7 +204,7 @@ namespace PockItKnifeTest
         }
 
 
-        [TestMethod]
+        [Test]
         public void Indexer__should_be_case_insensitive()
         {
             //ARRANGE
@@ -218,7 +219,7 @@ namespace PockItKnifeTest
             ca["FLAG1"].Should().Be(@"bla");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__test_ldap_path()
         {
             //ARRANGE
@@ -231,7 +232,7 @@ namespace PockItKnifeTest
             ca["flAg1"].Should().Be(@"ldap://blabla");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__can_handle_colon_or_equals()
         {
             //ARRANGE
@@ -245,7 +246,7 @@ namespace PockItKnifeTest
             ca["flag2"].Should().MatchEquivalentOf("blu");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__can_handle_equals_with_multiple_words()
         {
             //ARRANGE
@@ -258,7 +259,7 @@ namespace PockItKnifeTest
             ca["flag1"].Should().MatchEquivalentOf("bla bli blu");
         }
 
-        [TestMethod]
+        [Test]
         public void Indexer__can_handle_colon_and_single_number()
         {
             //ARRANGE
@@ -272,7 +273,7 @@ namespace PockItKnifeTest
         }
 
 
-        [TestMethod]
+        [Test]
         public void All__gets_list_of_all_keys()
         {
             //ARRANGE
@@ -289,7 +290,7 @@ namespace PockItKnifeTest
             list[1].Value.Should().Be("blubb");
         }
 
-        [TestMethod]
+        [Test]
         public void All__does_not_fail_on_null()
         {
             //ARRANGE
@@ -303,7 +304,7 @@ namespace PockItKnifeTest
             list.Should().HaveCount(0);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException (typeof(ArgumentNullException))]
         public void AutomagicInit__throws_if_input_is_null()
         {
@@ -319,7 +320,7 @@ namespace PockItKnifeTest
             true.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void AutomagicInit__complete_automagic()
         {
             //ARRANGE
@@ -336,7 +337,7 @@ namespace PockItKnifeTest
             tc.param3.Should().Be("blibb");
         }
 
-        [TestMethod]
+        [Test]
         public void AutomagicInit__complete_automagic_can_handle_param_not_found()
         {
             //ARRANGE
@@ -353,7 +354,7 @@ namespace PockItKnifeTest
             tc.param3.Should().BeNull();
         }
 
-        [TestMethod]
+        [Test]
         public void AutomagicInit__can_handle_boolean()
         {
             //ARRANGE
@@ -368,7 +369,7 @@ namespace PockItKnifeTest
             tc.param4.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void AutomagicInit__can_handle_numeric_values()
         {
             //ARRANGE
@@ -388,7 +389,7 @@ namespace PockItKnifeTest
             tc.param7.Should().BeGreaterOrEqualTo(d);
         }
 
-        [TestMethod]
+        [Test]
         public void AutomagicInit__Loads_param_using_attribute()
         {
             //ARRANGE
@@ -403,7 +404,7 @@ namespace PockItKnifeTest
             tc.param8.Should().Be("yeah");
         }
 
-        [TestMethod]
+        [Test]
         public void AutomagicInit__Loads_param_using_attribute_type_safe()
         {
             //ARRANGE
@@ -418,7 +419,7 @@ namespace PockItKnifeTest
             tc.param9.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfile__gets_default_helpfile_from_assemble_and_prints_it()
         {
             //ARRANGE
@@ -433,7 +434,7 @@ namespace PockItKnifeTest
             assert.Should().Contain("Help!!");
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfile__gets_specified_helpfile_from_assembly_and_prints_it()
         {
             //ARRANGE
@@ -448,7 +449,7 @@ namespace PockItKnifeTest
             assert.Should().Contain("Help!!");
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfile__gets_specified_caseinsensitive_helpfile_from_assembly_and_prints_it()
         {
             //ARRANGE
@@ -463,7 +464,7 @@ namespace PockItKnifeTest
             assert.Should().Contain("Help!!");
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException (typeof(System.IO.FileNotFoundException))]
         public void PrintHelpfile__throws_file_not_found_exception()
         {
@@ -479,7 +480,7 @@ namespace PockItKnifeTest
             true.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfile__default_does_not_fail()
         {
             //ARRANGE
@@ -493,7 +494,7 @@ namespace PockItKnifeTest
             true.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(System.IO.FileNotFoundException))]
         public void PrintHelpfile__default_does_fail()
         {
@@ -508,7 +509,7 @@ namespace PockItKnifeTest
             true.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfile__default_does_not_fail_2()
         {
             //ARRANGE
@@ -522,7 +523,7 @@ namespace PockItKnifeTest
             true.Should().BeTrue();
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfileIfRequested__prints_to_delegate_if_help_flag_is_set()
         {
             //ARRANGE
@@ -538,7 +539,7 @@ namespace PockItKnifeTest
             assert.Should().Contain("Help!!");
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfileIfRequested__does_not_print_to_delegate_if_help_flag_is_not_set()
         {
             //ARRANGE
@@ -554,7 +555,7 @@ namespace PockItKnifeTest
             assert.Should().BeNull();
         }
 
-        [TestMethod]
+        [Test]
         public void PrintHelpfileIfRequested__reacts_on_different_types_of_help_flags()
         {
             //ARRANGE
@@ -575,7 +576,7 @@ namespace PockItKnifeTest
             assert.Should().Be(8 * 2);
         }
 
-        [TestMethod]
+        [Test]
         public void Contains__false_if_argument_not_given()
         {
             //ARRANGE
@@ -589,7 +590,7 @@ namespace PockItKnifeTest
             result.Should().BeFalse();
         }
 
-        [TestMethod]
+        [Test]
         public void Contains__true_if_argument_not_given()
         {
             //ARRANGE

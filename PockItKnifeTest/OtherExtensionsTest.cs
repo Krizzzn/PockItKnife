@@ -1,7 +1,8 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System.Reflection;
 using FluentAssertions;
+using NUnit.Framework;
 namespace PockItKnifeTest
 {
     
@@ -10,7 +11,7 @@ namespace PockItKnifeTest
     ///This is a test class for OtherExtensionsTest and is intended
     ///to contain all OtherExtensionsTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture()]
     public class OtherExtensionsTest
     {
 
@@ -64,7 +65,7 @@ namespace PockItKnifeTest
         #endregion
 
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(System.IO.FileNotFoundException))]
         public void LoadEmbeddedFile__throws_file_not_found_exception()
         {
@@ -76,7 +77,7 @@ namespace PockItKnifeTest
             //ASSERT
         }
 
-        [TestMethod]
+        [Test]
         public void LoadEmbeddedFile__reads_file_contents()
         {
             //ARRANGE
@@ -88,7 +89,7 @@ namespace PockItKnifeTest
             s.Should().Contain("Help!!");
         }
 
-        [TestMethod]
+        [Test]
         public void LoadEmbeddedFile__reads_file_contents_with_extension()
         {
             //ARRANGE
