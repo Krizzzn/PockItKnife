@@ -105,6 +105,19 @@ namespace PockItKnifeTest
         }
 
         [Test]
+        public void LoadEmbeddedFile__reads_file_contents_with_differnt_encodings()
+        {
+            //ARRANGE
+
+            //ACT
+            var s1 = Assembly.GetExecutingAssembly().LoadEmbeddedFile("HELP.txt", System.Text.UTF8Encoding.ASCII);
+            var s2 = Assembly.GetExecutingAssembly().LoadEmbeddedFile("HELP.txt", System.Text.UTF8Encoding.UTF32);
+
+            //ASSERT
+            s1.Should().NotMatch(s2);
+        }
+
+        [Test]
         public void Jsonize__jsonizes_datatable()
         {
             // ARRANGE

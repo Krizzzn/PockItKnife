@@ -21,7 +21,20 @@ namespace System
         /// <exception cref="System.IO.FileNotFoundException">Throws a FileNotFoundException if the file is not compiled into the assembly as Embedded Resource</exception>
         public static string LoadEmbeddedFile(this System.Reflection.Assembly assembly, string fileNameInAssembly)
         {
+            return LoadEmbeddedFile(assembly, fileNameInAssembly, Encoding.Default);
+        }
 
+        /// <summary>
+        /// Loads an Embedded Resource File from a given assembly. The method looks for files compiled into the assembly ending with the 
+        /// given fileNameInAssembly. If multiple files with the same name exist, this returns the first in the list.
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="fileNameInAssembly"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        /// <exception cref="System.IO.FileNotFoundException">Throws a FileNotFoundException if the file is not compiled into the assembly as Embedded Resource</exception>
+        public static string LoadEmbeddedFile(this System.Reflection.Assembly assembly, string fileNameInAssembly, Encoding encoding)
+        {
             var resName = from name in assembly.GetManifestResourceNames()
                           where name.ToLower().EndsWith(fileNameInAssembly.ToLower())
                           select name;
@@ -36,18 +49,29 @@ namespace System
                 Byte[] bytes = new Byte[stream.Length];
 
                 stream.Read(bytes, 0, (int)(stream.Length));
-                text = System.Text.UTF8Encoding.Default.GetString(bytes);
+
+                text = encoding.GetString(bytes);
             }
 
             return text;
         }
 
+        /// <summary>
+        /// Converts a DataTable into a Json string.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
         public static string Jsonize(this DataTable dt)
         {
             var jsonizer = new PockItKnife.ToJson();
             return jsonizer.ConvertDataTable(dt);
         }
 
+        /// <summary>
+        /// Converts a SingleData Row into a Json string.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
         public static string Jsonize(this DataRow dr)
         {
             var jsonizer = new PockItKnife.ToJson();
