@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace System
 {
@@ -18,7 +19,8 @@ namespace System
         /// <param name="fileNameInAssembly"></param>
         /// <returns></returns>
         /// <exception cref="System.IO.FileNotFoundException">Throws a FileNotFoundException if the file is not compiled into the assembly as Embedded Resource</exception>
-        public static string LoadEmbeddedFile(this System.Reflection.Assembly assembly, string fileNameInAssembly) {
+        public static string LoadEmbeddedFile(this System.Reflection.Assembly assembly, string fileNameInAssembly)
+        {
 
             var resName = from name in assembly.GetManifestResourceNames()
                           where name.ToLower().EndsWith(fileNameInAssembly.ToLower())
@@ -30,8 +32,7 @@ namespace System
             if (fullResourceName == null)
                 throw new System.IO.FileNotFoundException("Could not find file {0} in the resources of assembly {1}.".Inject(fileNameInAssembly, assembly.FullName));
 
-            using (System.IO.Stream stream = assembly.GetManifestResourceStream(fullResourceName))
-            {
+            using (System.IO.Stream stream = assembly.GetManifestResourceStream(fullResourceName)) {
                 Byte[] bytes = new Byte[stream.Length];
 
                 stream.Read(bytes, 0, (int)(stream.Length));
@@ -39,6 +40,18 @@ namespace System
             }
 
             return text;
+        }
+
+        public static string Jsonize(this DataTable dt)
+        {
+            var jsonizer = new PockItKnife.ToJson();
+            return jsonizer.ConvertDataTable(dt);
+        }
+
+        public static string Jsonize(this DataRow dr)
+        {
+            var jsonizer = new PockItKnife.ToJson();
+            return jsonizer.ConvertDataRow(dr);
         }
     }
 }

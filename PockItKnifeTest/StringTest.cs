@@ -105,7 +105,7 @@ namespace PockItKnifeTest
         [TestCase(null)]
         [TestCase("")]
         [Test]
-        public void Crypt_CanHandleNullValue(string value)
+        public void Crypt__Can_Handle_Null_or_empty_Value(string value)
         {
             //ARRANGE
             string handle = null;
@@ -116,19 +116,6 @@ namespace PockItKnifeTest
             //ASSERT
             Assert.IsNotNull(result);
 
-        }
-
-        [Test]
-        public void Crypt_CanHandleEmptyValue()
-        {
-            //ARRANGE
-            string handle = "";
-
-            //ACT
-            var result = handle.Crypt();
-
-            //ASSERT
-            Assert.IsNotNull(result);
         }
 
         [Test]

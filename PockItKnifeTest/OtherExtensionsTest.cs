@@ -3,10 +3,14 @@
 using System.Reflection;
 using FluentAssertions;
 using NUnit.Framework;
+using System.Data;
+using System.Web.Script.Serialization;
+
+
 namespace PockItKnifeTest
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for OtherExtensionsTest and is intended
     ///to contain all OtherExtensionsTest Unit Tests
@@ -64,7 +68,6 @@ namespace PockItKnifeTest
         //
         #endregion
 
-
         [Test]
         [ExpectedException(typeof(System.IO.FileNotFoundException))]
         public void LoadEmbeddedFile__throws_file_not_found_exception()
@@ -99,6 +102,57 @@ namespace PockItKnifeTest
 
             //ASSERT
             s.Should().Contain("Help!!");
+        }
+
+        [Test]
+        public void Jsonize__jsonizes_datatable()
+        {
+            // ARRANGE
+            var dt = new DataTable();
+            var serializer = new JavaScriptSerializer();
+
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("thefoo", typeof(string));
+
+            for (int i = 0; i < 5; i++) {
+                var row = dt.NewRow();
+                row[0] = i;
+                row[1] = "bort {0}".Inject(i);
+                dt.Rows.Add(row);
+            }
+
+            //ACT
+            var jsonString = dt.Jsonize();
+            var result = serializer.DeserializeObject(jsonString) as object[];
+
+            //ASSERT
+            result.Should().NotBeNull();
+            result.Should().HaveCount(5);
+        }
+
+        [Test]
+        public void Jsonize__jsonizes_datacolumn()
+        {
+            // ARRANGE
+            var dt = new DataTable();
+            var serializer = new JavaScriptSerializer();
+
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("thefoo", typeof(string));
+
+            for (int i = 0; i < 5; i++) {
+                var row = dt.NewRow();
+                row[0] = i;
+                row[1] = "bort {0}".Inject(i);
+                dt.Rows.Add(row);
+            }
+
+            //ACT
+            var jsonString = dt.Rows[3].Jsonize();
+            var result = serializer.DeserializeObject(jsonString) as object;
+
+            //ASSERT
+            result.Should().NotBeNull();
         }
     }
 }
