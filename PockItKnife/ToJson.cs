@@ -6,12 +6,12 @@ using System.Data;
 
 namespace PockItKnife
 {
-    public class ToJson
+    internal class ToJson
     {
         private readonly Type[] __NUMERIC_TYPES = new[] { typeof(double), typeof(int), typeof(short), typeof(float), typeof(decimal), typeof(long), typeof(ulong), typeof(uint), typeof(ushort) };
         private const string __DELIMITER = "'";
 
-        public ToJson()
+        internal ToJson()
         {
         }
 
@@ -43,7 +43,7 @@ namespace PockItKnife
             return value;
         }
 
-        public string ConvertDataTable(DataTable dt)
+        internal string ConvertDataTable(DataTable dt)
         {
             if (dt == null || dt.Rows.Count == 0)
                 return "[]";
@@ -60,7 +60,7 @@ namespace PockItKnife
             return builder.ToString();
         }
 
-        public string ConvertDataRow(DataRow dr)
+        internal string ConvertDataRow(DataRow dr)
         {
             string delimitColumn = "";
             StringBuilder builder = new StringBuilder();

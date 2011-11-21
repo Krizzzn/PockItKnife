@@ -32,7 +32,7 @@ namespace PockItKnifeTest
 
         [TestCase(typeof(int))]
         [TestCase(typeof(string))]
-        [TestCase(typeof(ToJson))]
+        [TestCase(typeof(ToJsonTest))]
         [Test]
         public void Convert__returns_key_value_for_null_value(Type theType)
         {

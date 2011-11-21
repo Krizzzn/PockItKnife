@@ -32,6 +32,8 @@
 
 * **Embedded Resource reader extension for System.Reflection.Assembly**
 
+* **JsonizeExtension() for DataTable and DataRow**
+
 * **other string extensions**
 	such as: Limit() and IsNullOrEmpty()
 
