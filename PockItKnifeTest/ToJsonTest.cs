@@ -73,6 +73,19 @@ namespace PockItKnifeTest
         }
 
         [Test]
+        public void Convert__returns_date_value()
+        {
+            // ARRANGE
+            var j = new ToJson_Accessor();
+
+            //ACT
+            var result = j.Convert("bort", new DateTime(2011, 5, 1, 19, 01, 10), typeof(DateTime));
+
+            //ASSERT
+            result.Should().Contain("bort").And.Contain("2011-05-01T19-01-10Z");
+        }
+
+        [Test]
         [TestCase(typeof(double))]
         [TestCase(typeof(int))]
         [TestCase(typeof(short))]
@@ -108,16 +121,16 @@ namespace PockItKnifeTest
         }
 
         [Test]
-        public void Convert__escape_delimiter()
+        public void Convert__escapes_delimiter()
         {
             // ARRANGE
             var j = new ToJson_Accessor();
 
             //ACT
-            var result = j.Convert("bort", "bo'rt", typeof(string));
+            var result = j.Convert("bort", "bo\"rt", typeof(string));
 
             //ASSERT
-            result.Should().Contain("bort").And.Contain(@"bo\'rt").And.Contain(":").And.NotContain("bo'rt");
+            result.Should().Contain("bort").And.Contain(@"bo\""rt").And.Contain(":").And.NotContain("bo\"rt");
         }
 
         [Test]
@@ -130,7 +143,7 @@ namespace PockItKnifeTest
             var result = j.Convert("bort", "weeeeeeeee", typeof(string));
 
             //ASSERT
-            result.Should().Contain(@"'bort':");
+            result.Should().Contain("\"bort\":");
         }
 
         [Test]
@@ -151,6 +164,7 @@ namespace PockItKnifeTest
         [TestCase(false, typeof(Boolean))]
         [TestCase(9.456, typeof(double))]
         [TestCase(6, typeof(int))]
+        [TestCase("2011-10-01 12:21:33"  , typeof(DateTime))]
         [Test(Description = "Integration")]
         public void Convert__produces_valid_json(object value, Type type)
         {
@@ -203,6 +217,31 @@ namespace PockItKnifeTest
             var result = serializer.DeserializeObject(jsonString);
 
             //ASSERT
+            result.Should().NotBeNull();
+        }
+
+        [Test(Description = "Integration")]
+        public void Convert__produces_valid_json_for_datatable_one_row_and_recognizes_DBNull()
+        {
+            // ARRANGE
+            var j = new ToJson_Accessor();
+            var dt = new DataTable();
+            var serializer = new JavaScriptSerializer();
+
+            dt.Columns.Add("id", typeof(int));
+            dt.Columns.Add("thefoo", typeof(string));
+
+            var row = dt.NewRow();
+            row[0] = DBNull.Value;
+            row[1] = "bort";
+            dt.Rows.Add(row);
+
+            //ACT
+            var jsonString = j.ConvertDataTable(dt);
+            var result = serializer.DeserializeObject(jsonString);
+
+            //ASSERT
+            jsonString.Should().Contain(": null");
             result.Should().NotBeNull();
         }
 
@@ -295,7 +334,7 @@ namespace PockItKnifeTest
             var result = j.ConvertDataTable(dt);
 
             //ASSERT
-            result.Should().Contain(@"[{").And.Contain("'id':").And.Contain("'thefoo':").And.Contain("'bort'").And.Contain(@"}]");
+            result.Should().Contain(@"[{").And.Contain("\"id\":").And.Contain("\"thefoo\":").And.Contain("\"bort\"").And.Contain(@"}]");
         }
 
         [Test]

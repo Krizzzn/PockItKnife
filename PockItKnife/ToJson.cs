@@ -9,7 +9,7 @@ namespace PockItKnife
     internal class ToJson
     {
         private readonly Type[] __NUMERIC_TYPES = new[] { typeof(double), typeof(int), typeof(short), typeof(float), typeof(decimal), typeof(long), typeof(ulong), typeof(uint), typeof(ushort) };
-        private const string __DELIMITER = "'";
+        private const string __DELIMITER = "\"";
 
         internal ToJson()
         {
@@ -25,19 +25,22 @@ namespace PockItKnife
 
         private object ConvertValue(object value, Type type)
         {
-            if (value == null)
+            if (value == null || System.Convert.IsDBNull(value))
                 value = "null";
             else {
                 string delimiter = "";
                 if (type == typeof(bool))
                     value = value.ToString().ToLower();
+                else if (type == typeof(DateTime)) {
+                    value = System.Convert.ToDateTime(value).ToString("yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'Z'");
+                    delimiter = __DELIMITER;
+                }
                 else if (__NUMERIC_TYPES.Contains(type))
                     value = value.ToString().Replace(",", ".").ToLower();
                 else {
                     delimiter = __DELIMITER;
                     value = value.ToString().Replace(delimiter, @"\" + delimiter);
                 }
-
                 value = delimiter + value + delimiter;
             }
             return value;
